@@ -33,7 +33,7 @@ def count_number(find_value, numbers):
 # [1, 1], [2, 2], [3, 3], [5, 1], [6, 1]
 
 
-def get_freq_numbers():
+def get_freq_numbers(numbers):
     '''
     find values: 2
     numbers: [1,2,3,2,5,3,6,3]
@@ -42,9 +42,9 @@ def get_freq_numbers():
     freq_numbers = []
     for number in numbers:
         found = False
-        for values in freq_numbers:
-            if values[0] == number:
-                values[1] += 1
+        for value in freq_numbers:
+            if value[0] == number:
+                value[1] += 1
                 found = True
         if not found:
             freq_numbers.append([number, 1])
@@ -53,7 +53,7 @@ def get_freq_numbers():
 
 
 # input_numbers = input('input_numbers: ')
-input_numbers = "1 2 3 4 5"
+
 numbers = read_numbers(input_numbers)
 print('numbers: ', numbers)
 
@@ -62,4 +62,5 @@ count = count_number(find_value, numbers)
 
 print(count)
 
-freq_nubers = get_freq_numbers()
+freq_numbers = get_freq_numbers(numbers)
+print(freq_numbers)
