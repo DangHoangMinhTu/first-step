@@ -8,12 +8,16 @@ def read_numbers(input_nums):
     '''
     # pass
     values = input_nums.split()
+    # .split là tách 1 string thành list theo dấu cách tuy nhiên nếu mà muốn tách theo các khác thì có thể dùng kiểu "..".split(",")
     print('values: ', values)
     numbers = []
     for value in values:
+        # for value in values giống kiểu
+        # for (int i=0, i < len, i++){
+        # value = values[i]}
         num = float(value)
         numbers.append(num)
-    print(numbers)
+    print('numbers is: ', numbers)
     return numbers
 
 
@@ -55,12 +59,13 @@ def get_freq_numbers(numbers):
 # input_numbers = input('input_numbers: ')
 
 numbers = read_numbers(input_numbers)
-print('numbers: ', numbers)
 
-find_value = 3
+find_value = int(input('find_value: '))
+
+
 count = count_number(find_value, numbers)
 
-print(count)
+print('count is: ', count)
 
 freq_numbers = get_freq_numbers(numbers)
-print(freq_numbers)
+print('freq_numbers is: ', freq_numbers)
