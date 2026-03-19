@@ -13,3 +13,14 @@ if found:
     print("first ouccurs at position", position)
 else:
     print("the string does not contant a digit.")
+
+
+    """trên kia là first còn đây là last nha"""
+string = input("enter the sentence: ")
+found = False
+position = len(string) - 1
+while not found and position >= 0:
+    if string[position].isdigit() :
+        found = True
+    else :
+        position = position-1
