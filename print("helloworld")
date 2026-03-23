@@ -1,1 +1,110 @@
-printf"hello world";
+def read_input_data():
+    """
+3
+S01 M01 8
+S02 M02 9 
+S02 M03 10
+=> score = [
+    [S01, 8...],
+    [S02, 9, 10],
+]
+
+=> aocre = [
+    [S01, [8]],
+    [S02, [9, 10]]
+]
+
+"""
+    how_many = int(input('Enter how many students: '))
+    scores = []
+
+    for _ in range(how_many):
+        line = input("enter student's id, project and score: ")
+        line_split = line.split()
+
+        print('line is: ', line_split)
+
+        student_id = line_split[0]
+        score = 0
+        if len(line_split) >= 3:
+            score = float(line_split[2])
+
+        # if student_id not in list scores
+        # => append new list [student_id, score]
+        # else append score to current student list
+        if len(scores) == 0:
+            scores.append([student_id, score])
+            continue
+
+        found_student = False
+        for student_scores in scores:
+            # student_score = ['S01', 8, 6]
+            if student_id == student_scores[0]:
+                student_scores.append(score)
+                found_student = True
+                break
+
+        if not found_student:
+            scores.append([student_id, score])
+    return scores
+
+
+def average_score(scores):
+    """
+    return:[
+        [S01, 8]
+        [S01, 9.5]
+        ]
+    """
+    average_scores_lst = []
+    for student_scores in scores:
+        average = 0
+        sums = 0
+        remove_student_id = student_scores.pop(0)
+        for score_in_lst_scores in student_scores:
+            sums = sums + score_in_lst_scores
+        average = sums / len(student_scores)
+        average_scores_lst.append([remove_student_id, average])
+    return average_scores_lst
+
+
+def student_score_higher_than_5(average_scores_lst):
+    """
+    return: 2
+    """
+    number_student_higher_5 = 0
+    for average in average_scores_lst:
+        if average[1] >= 5:
+            number_student_higher_5 += 1
+    return number_student_higher_5
+
+
+def lst_students_score_lower_5(average_scores_lst):
+    '''
+    return : [none]
+    '''
+    lst_student_lower_5 = []
+    lower_5_found = False
+    for average in average_scores_lst:
+        if average[1] < 5:
+            lst_student_lower_5.append(average[0])
+            lower_5_found = True
+        break
+
+    if not lower_5_found:
+        return "None"
+    return lst_student_lower_5
+
+
+scores = read_input_data()
+print('data is: ', scores)
+
+average_scores_lst = average_score(scores)
+print('average scores of students is: ', average_scores_lst)
+
+number_students_higher_5 = student_score_higher_than_5(average_scores_lst)
+print('number of student whose average socres is higher than 5 is: ',
+      number_students_higher_5)
+
+lst_student_lower_5 = lst_students_score_lower_5(average_scores_lst)
+print('lst students whose average score lower than 5: ', lst_student_lower_5)
