@@ -15,7 +15,7 @@ S02 M03 10
 ]
 
 """
-    how_many = int(input('Enter how many students: '))
+    how_many = int(input('Enter how many lines: '))
     scores = []
 
     for _ in range(how_many):
