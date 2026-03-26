@@ -29,9 +29,6 @@ S02 M03 10
         if len(line_split) >= 3:
             score = float(line_split[2])
 
-        # if student_id not in list scores
-        # => append new list [student_id, score]
-        # else append score to current student list
         if len(scores) == 0:
             scores.append([student_id, score])
             continue
