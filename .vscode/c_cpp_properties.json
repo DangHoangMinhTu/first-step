@@ -1,12 +1,41 @@
-{
-    "configurations": [
-        {
-            "name": "Mac",
-            "includePath": [
-                "${workspaceFolder}/**"
-            ],
-            "defines": []
-        }
-    ],
-    "version": 4
-}
+import altair as alt
+
+# Filter out extreme outliers for visualization
+df_filtered = df[df['Game_Duration_Cleaned'] <= 12].copy()
+
+# 1. GPA vs Study Hours
+chart1 = alt.Chart(df_filtered).mark_bar().encode(
+    x=alt.X('Study_Hours:N', sort=['<1h', '1-3h', '3-5h', '5h+'], title='Thời gian tự học'),
+    y=alt.Y('average(GPA_Cleaned):Q', title='GPA trung bình'),
+    color=alt.Color('Study_Hours:N', legend=None)
+).properties(title='GPA trung bình theo thời gian tự học')
+chart1.save('gpa_vs_study.json')
+
+# 2. Game Days vs GPA
+chart2 = alt.Chart(df_filtered).mark_circle(size=60).encode(
+    x=alt.X('Game_Days_Cleaned:Q', title='Số ngày chơi game/tuần'),
+    y=alt.Y('GPA_Cleaned:Q', title='GPA'),
+    tooltip=['Name', 'GPA_Cleaned', 'Game_Days_Cleaned']
+).properties(title='Mối liên hệ giữa số ngày chơi game và GPA')
+chart2.save('game_days_vs_gpa.json')
+
+# 3. Stress Level vs Concentration
+chart3 = alt.Chart(df_filtered).mark_point().encode(
+    x=alt.X('Stress_Level:Q', title='Mức độ căng thẳng (0-10)'),
+    y=alt.Y('Concentration:Q', title='Mức độ tập trung (0-10)'),
+    color=alt.Color('Gender:N', title='Giới tính'),
+    tooltip=['Name', 'Stress_Level', 'Concentration']
+).properties(title='Mối liên hệ giữa căng thẳng và sự tập trung')
+chart3.save('stress_vs_concentration.json')
+
+# 4. Stress Level by Study Hours
+chart4 = alt.Chart(df_filtered).mark_boxplot().encode(
+    x=alt.X('Study_Hours:N', sort=['<1h', '1-3h', '3-5h', '5h+'], title='Thời gian tự học'),
+    y=alt.Y('Stress_Level:Q', title='Mức độ căng thẳng'),
+    color='Study_Hours:N'
+).properties(title='Phân bổ mức độ căng thẳng theo thời gian học')
+chart4.save('stress_by_study.json')
+
+# Summary statistics for the response
+summary_stats = df_filtered[['GPA_Cleaned', 'Study_Hours_Cleaned', 'Game_Days_Cleaned', 'Stress_Level', 'Concentration']].describe()
+print(summary_stats)
