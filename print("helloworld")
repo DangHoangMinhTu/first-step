@@ -57,11 +57,11 @@ def average_score(scores):
     for student_scores in scores:
         average = 0
         sums = 0
-        remove_student_id = student_scores.pop(0)
-        for score_in_lst_scores in student_scores:
+        number_only = student_scores[1:]
+        for score_in_lst_scores in number_only:
             sums = sums + score_in_lst_scores
-        average = sums / len(student_scores)
-        average_scores_lst.append([remove_student_id, average])
+        average = sums / len(number_only)
+        average_scores_lst.append([student_scores[0], average])
     return average_scores_lst
 
 
@@ -102,6 +102,9 @@ print('average scores of students is: ', average_scores_lst)
 number_students_higher_5 = student_score_higher_than_5(average_scores_lst)
 print('number of student whose average socres is higher than 5 is: ',
       number_students_higher_5)
+
+lst_student_lower_5 = lst_students_score_lower_5(average_scores_lst)
+print('lst students whose average score lower than 5: ', lst_student_lower_5)
 
 lst_student_lower_5 = lst_students_score_lower_5(average_scores_lst)
 print('lst students whose average score lower than 5: ', lst_student_lower_5)
