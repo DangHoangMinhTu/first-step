@@ -106,5 +106,4 @@ print('number of student whose average socres is higher than 5 is: ',
 lst_student_lower_5 = lst_students_score_lower_5(average_scores_lst)
 print('lst students whose average score lower than 5: ', lst_student_lower_5)
 
-lst_student_lower_5 = lst_students_score_lower_5(average_scores_lst)
-print('lst students whose average score lower than 5: ', lst_student_lower_5)
+
